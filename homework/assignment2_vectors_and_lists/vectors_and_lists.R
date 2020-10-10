@@ -44,6 +44,30 @@ log_statistics <- function(data){
 
 log_river_stats <- log_statistics(rivers)
 # Remove the 10 least and 10 greatest values in Rivers then create descriptive
-# stats vector of it
+# stats vector from it
 log_trimriver_stats <- log_statistics(sort(rivers)[11:(length(rivers)-10)])
 
+
+# Problem 3 ---------------------------------------------------------------
+# Create a list and modify its contents
+# 1 create a list 'u' with two items x = c(5, 6, 7, 8) and 
+# y = c("a", "b", "c", "d")
+u <- list(x = c(5, 6, 7, 8), y = c("a", "b", "c", "d"))
+
+# 2
+# Modify y in u such that it has numerical values c(1, 2, 3, 4).
+u$y <- c(1, 2, 3, 4)
+
+# 3
+# What is the best way to compute the mean of all elements in x and y?
+mean_u <- lapply(u, mean) # compute mean for each vector within list
+mean_u_allvals <- mean(unlist(u)) # compute mean for all values in list
+
+# 4 
+# Add x2 = x^2 and log_x = log(x) into the list.
+u$"x^2" <- u$x^2
+u$"log_x" <- log(u$x)
+
+# 5
+# Remove log_x from the list.
+u$log_x <- NULL
