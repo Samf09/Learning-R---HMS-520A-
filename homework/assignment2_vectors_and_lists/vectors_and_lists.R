@@ -10,18 +10,25 @@ rm(list = ls())
 
 # problem 1 ---------------------------------------------------------------
 # Create various vectors
+# 1
 vector1 <- c(1:100)
+# 2
 vector2 <- rep(10, 100)
+# 3
 vector3 <- rep(c(1, 2, 3, 4, 5), 10)
+# 4
 vector4 <- rep(c(1, 2, 3, 4, 5), each=10)
+# 5
 vector5 <- seq.int(0.00, 1.00, 0.01)
 
 
 # problem 2 ---------------------------------------------------------------
 # Rivers dataset practice
+# 1
 help(rivers)
 paste0("type of rivers data set is an atomic vector of: ", typeof(rivers))
 
+# 2
 # Create an atomic vector of Rivers that contains the length, sum,
 # mean, median, variance, standard deviation, minimum and maximum of 
 # log-transformed rivers
@@ -43,6 +50,7 @@ log_statistics <- function(data){
 }
 
 log_river_stats <- log_statistics(rivers)
+# 3
 # Remove the 10 least and 10 greatest values in Rivers then create descriptive
 # stats vector from it
 log_trimriver_stats <- log_statistics(sort(rivers)[11:(length(rivers)-10)])
