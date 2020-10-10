@@ -71,3 +71,28 @@ u$"log_x" <- log(u$x)
 # 5
 # Remove log_x from the list.
 u$log_x <- NULL
+
+
+# Problem 4 ---------------------------------------------------------------
+# 1
+# Create 3 vectors that will go into matrix
+x <- c(1, 2, 3)
+y <- c(4, 5, 6)
+z <- c(7, 8, 9)
+
+# 2
+# Create row matrix from 3 vectors
+row_matrix <- rbind(x, y, z)
+
+# 3
+# Create a col matrix from 3 vectors
+col_matrix <- cbind(x, y, z)
+
+# 4
+# Reshape a vector into a 4x3 matrix by col
+a <- c(1:12)
+matrix_a_col <- matrix(a, ncol = 3, nrow = 4)
+
+# 5
+# Reshape a vector into a 4 x 3 matrix by rows
+matrix_a_row <- matrix(a, ncol = 3, nrow = 4, byrow = TRUE)
