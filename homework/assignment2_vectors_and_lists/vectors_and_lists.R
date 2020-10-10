@@ -22,7 +22,7 @@ vector5 <- seq.int(0.00, 1.00, 0.01)
 help(rivers)
 paste0("type of rivers data set is an atomic vector of: ", typeof(rivers))
 
-# Create an atomic vector of Rivers that contains contains the length, sum,
+# Create an atomic vector of Rivers that contains the length, sum,
 # mean, median, variance, standard deviation, minimum and maximum of 
 # log-transformed rivers
 log_statistics <- function(data){
@@ -50,8 +50,8 @@ log_trimriver_stats <- log_statistics(sort(rivers)[11:(length(rivers)-10)])
 
 # Problem 3 ---------------------------------------------------------------
 # Create a list and modify its contents
-# 1 create a list 'u' with two items x = c(5, 6, 7, 8) and 
-# y = c("a", "b", "c", "d")
+# 1 
+# create a list 'u' with two items x = c(5, 6, 7, 8) and y = c("a", "b", "c", "d")
 u <- list(x = c(5, 6, 7, 8), y = c("a", "b", "c", "d"))
 
 # 2
@@ -94,7 +94,7 @@ a <- c(1:12)
 matrix_a_col <- matrix(a, ncol = 3, nrow = 4)
 
 # 5
-# Reshape a vector into a 4 x 3 matrix by rows
+# Reshape a vector into a 4x3 matrix by rows
 matrix_a_row <- matrix(a, ncol = 3, nrow = 4, byrow = TRUE)
 
 
