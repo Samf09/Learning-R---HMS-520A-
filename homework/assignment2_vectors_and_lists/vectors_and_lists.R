@@ -96,3 +96,46 @@ matrix_a_col <- matrix(a, ncol = 3, nrow = 4)
 # 5
 # Reshape a vector into a 4 x 3 matrix by rows
 matrix_a_row <- matrix(a, ncol = 3, nrow = 4, byrow = TRUE)
+
+
+# Problem 5 ---------------------------------------------------------------
+# Matrix operations
+# 1
+# Create 3 matrices A, B, C
+A <- matrix(c(1:12), nrow = 3)
+B <- matrix(c(1:16), nrow = 4)
+C <- matrix(c(16:1), nrow = 4)
+
+# 2
+# Multiplication. What does B * C do?
+B_by_C <- B*C
+
+# B_by_C
+# [,1] [,2] [,3] [,4]
+# [1,]   16   60   72   52
+# [2,]   30   66   70   42
+# [3,]   42   70   66   30
+# [4,]   52   72   60   16
+# 
+# Resulting matrix is multiplication by column so:
+# B[1,1] <- 1 multiplied by  C[1,1] <- 16 results in 16
+# B[1, 2] <- 2 multiplied by C[1, 2] <- 15 results in 30
+
+# 3
+# Matrix Multiplication. What does A %*% B do?
+A_by_B <- A %*% B
+
+# A_by_B
+# [,1] [,2] [,3] [,4]
+# [1,]   70  158  246  334
+# [2,]   80  184  288  392
+# [3,]   90  210  330  450
+#
+# Resulting matrix is actual matrix multiplication so:
+# A columns [1, 2, 3, 4] * B rows[1, 2, 3, 4] -> 
+# A vals(1, 4, 7, 10) * B vals(1, 2, 3, 4)
+# 1*1 + 4*2 + 7*3 + 10*4 = 70
+
+# 4
+# Compute the sum of diagonal elements in B
+sum_diag_B <- sum(diag(B))
