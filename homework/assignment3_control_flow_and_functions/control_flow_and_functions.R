@@ -51,6 +51,7 @@ my_var <- function(x, na.rm=TRUE){
 # Problem 2 ---------------------------------------------------------------
 # Create a fibonacci sequence function
 #1 create a fib function
+#2 add a start_from argument
 fib <- function(n, start_from=c(0)){
   if (n >= 0){
     n <- round(n) # if a decimal is passed e.g n = 3.4, the function will break
@@ -76,5 +77,41 @@ fib <- function(n, start_from=c(0)){
 
 
 # Problem 3 ---------------------------------------------------------------
+# Create unique related functions
+#1 create a function count that returns how many times a passed argument is
+# in a vector
+#2 update function so that x can be a vector and to return vector of counts
+count <- function(vec, x){
+  if (typeof(vec) == "integer" || typeof(vec) == "double" ||
+      typeof(vec) == "character"){
+    return_count <- vector()
+    for (i in 1:length(x)){
+      subx <- x[i]
+      count <- 0
+      for (i in 1:length(vec)){
+        subvec <- vec[i]
+        if(subvec == subx){
+          count = count + 1
+        }
+      }
+      return_count <- append(return_count, count)
+      }
+    return(return_count)
+  } else{
+    warning("vec must be an atomic vector")
+  }
+}
 
-
+#3 create a my_unique function that returns unique values in a vector and counts
+# if told to
+my_unique <- function(vec, return_counts = FALSE){
+  if (return_counts){
+    x <- unique(vec)
+    counts <- count(vec, x)
+    x_counts <- data.frame(x = x,
+                           counts = counts)
+    return(x_counts)
+  } else{
+    unique(vec)
+  }
+}
