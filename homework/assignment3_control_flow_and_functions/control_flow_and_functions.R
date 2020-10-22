@@ -47,3 +47,34 @@ my_var <- function(x, na.rm=TRUE){
   denom <- ifelse(na.rm, length(x[!is.na(x)]), length(x))
   sum_square_x /(denom - 1)
 }
+
+# Problem 2 ---------------------------------------------------------------
+# Create a fibonacci sequence function
+#1 create a fib function
+fib <- function(n, start_from=c(0)){
+  if (n >= 0){
+    n <- round(n) # if a decimal is passed e.g n = 3.4, the function will break
+    ifelse(start_from == c(0), count_up <- 0, count_up <- 1)
+    fib_seq <- start_from
+    while (count_up != n){
+      fib_num <- fib_seq[count_up]
+      count_up <- count_up + 1
+      if (length(fib_num) == 0){ 
+        # if we are at 1 the sequence variable hasn't been populated enough to
+        # pull 2 values from it so we set the number manually
+        fib_num = 1
+      } else {
+        fib_num <- fib_num + fib_seq[count_up]
+      }
+      fib_seq <- append(fib_seq, fib_num)
+    }
+    fib_seq
+  } else {
+    warning("N must be 0 or a positive integer")
+  }
+}
+
+
+# Problem 3 ---------------------------------------------------------------
+
+
