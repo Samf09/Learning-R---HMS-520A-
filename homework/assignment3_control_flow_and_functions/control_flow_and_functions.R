@@ -71,7 +71,7 @@ fib <- function(n, start_from=c(0)){
     }
     fib_seq
   } else {
-    warning("N must be 0 or a positive integer")
+    warning("N must be 0, or a positive integer")
   }
 }
 
@@ -115,3 +115,20 @@ my_unique <- function(vec, return_counts = FALSE){
     unique(vec)
   }
 }
+
+# problem 4 ---------------------------------------------------------------
+# Create functions to help with binomial data computation
+#1 create a binomial_fun function with arguments s (sum of events) and n (# events)
+# Create a function binomial_fun with argument s (the sum of the events) and 
+# n (samples) sizes, and return the estimation of mean $\hat{p}$ and the
+# standard deviation of the estimation $\sqrt{\hat{v}}$. Notice that s and
+# n could be vectors. You could assume they have the same length for this part
+binomial_fun <- function(s, n){
+  s <- sum(s)
+  phat <- (s/n)
+  # browser()
+  std_dev <- sqrt((phat * (1-phat))/n)
+  return(c("mean_phat"= mean(phat), "std_dev"= std_dev))
+}
+cones <- c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
+binomial_fun(cones, length(cones))
