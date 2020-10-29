@@ -3,7 +3,9 @@
 # Author: Sam Farmer
 # Date: 10/18/2020
 #
-#  This assignment explores control flow and writing functions.
+#  This assignment explores control flow and writing functions by recreating
+#  built in R functions such as sum, and mean. Along with creating some new
+#  functions also
 # -------------------------------------------------------------------------
 
 # setup -------------------------------------------------------------------
@@ -130,5 +132,47 @@ binomial_fun <- function(s, n){
   std_dev <- sqrt((phat * (1-phat))/n)
   return(c("mean_phat"= mean(phat), "std_dev"= std_dev))
 }
-cones <- c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)
-binomial_fun(cones, length(cones))
+
+# problem 5 ---------------------------------------------------------------
+# Create a polynomial fit function
+#1 Write a function called lin_fit, with x and y as the arguments, and return 
+# the coefficients of the linear fit. You could use lm function, and the 
+# coefficients should have length 2 (intercept and slope).
+lin_fit <- function(x, y, data){
+  lm(as.formula(paste0(y, " ~ ", x)), data)
+}
+
+#2 Extend the function create `poly_fit`, with `x` and `y` and `degree = 1` as 
+# the arguments and return coefficients of the polynomial fit. For example if 
+# `degree = 3`
+poly_fit <- function(x, y, degree = 1){
+  lm_equation <- paste0(y, " ~ 1 +")
+  for (num in 1:degree){
+    if (num == 1){
+      lm_equation <- paste0(lm_equation, " ", x)
+    } else {
+      lm_equation <- paste0(lm_equation, " + ", x, "^", num)
+    }
+  }
+  #lm(as.formula(paste0(lm_equation)), data = data)
+  paste0(lm_equation)
+}
+
+#3 Create a poly_pred function, with x and coef as the arguments. This function
+# will take x and the polynomial coefficients and return the dependent vectors.
+#(Hint: we could automatically infer the degree by the length of coef.)
+poly_pred <- function(x, coef){
+  degree = length(coef)
+  lm_equation <- paste0(" ~ 1 + ")
+  for (num in 1:degree){
+    if (num == 1){
+      lm_equation <- paste0(lm_equation, x)
+    } else {
+      lm_equation <- paste0(lm_equation, " + ", x, "^", num)
+    }
+  }
+  # I split the string that represents my polynomial on everything that isn't
+  # the y value using strsplit. This creates a list of lists which I flatten
+  # using unlist into a single list and return the first value in the list y
+  unlist(strsplit(coef, lm_equation, fixed = TRUE))[1]
+}
