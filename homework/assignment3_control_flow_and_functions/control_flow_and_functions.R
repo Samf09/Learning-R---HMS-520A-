@@ -176,3 +176,26 @@ poly_pred <- function(x, coef){
   # using unlist into a single list and return the first value in the list y
   unlist(strsplit(coef, lm_equation, fixed = TRUE))[1]
 }
+
+### example using data pulled from online here
+# http://www.learnbymarketing.com/tutorials/linear-regression-in-r/
+data_path <- paste0("http://www.learnbymarketing.com/wp-content/uploads/2014/",
+                    "12/data-marketing-budget-12mo.csv", sep= "")
+data <- read.csv(data_path, header = TRUE)
+
+#1
+lin_fit("Spend", "Sales", data)
+
+# returns:
+#   lm(formula = as.formula(paste0(y, " ~ ", x)), data = data)
+# 
+# Coefficients:
+#   (Intercept)        Spend  
+# 1383.47        10.62
+
+#2
+coef <- poly_fit("Spend", "Sales", degree = 3)
+# returns [1] "Sales ~ 1 + Spend + Spend^2 + Spend^3"
+
+poly_pred("Spend", coef)
+# returns [1] "Sales"
