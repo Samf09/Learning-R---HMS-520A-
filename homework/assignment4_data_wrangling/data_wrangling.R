@@ -7,14 +7,19 @@
 
 rm(list = ls())
 
-library(tidyr)
+library(tidyverse)
 library(dplyr)
+library(tidyr)
+library(ggplot2)
 
 iris_withid <- as.data.frame(iris %>% group_by(Species) %>% 
                                mutate(group_id=rep(1:2, each=25)))
+
+# must be loading in after creating iris_withid otherwise mutate fails
+library(plyr)
+
 group_id_test <- c("Species", "group_id")
-obs_summarise <- c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")
-obs_regress <- "Sepal.Length"
+obs <- "Sepal.Length"
 covs_regress <- c("Sepal.Width", "Petal.Length")
 # problem 1 ---------------------------------------------------------------
 # Create a summarise_group_data function with args [data, group_id, obs, fun, ...]
@@ -28,7 +33,7 @@ summarise_group <- function(data, group_id, obs, fun, ...){
                              fun), ... = ...)
 }
 
-mean_data <- summarise_group(iris_withid, group_id_test, obs_summarise, "mean")
+mean_data <- summarise_group(iris_withid, group_id_test, all_of(obs), "mean")
 
 # problem 2 ---------------------------------------------------------------
 # Create a regress_group_data function with args [data, group_id, obs, covs, include_intecept, ...]
@@ -36,26 +41,22 @@ mean_data <- summarise_group(iris_withid, group_id_test, obs_summarise, "mean")
 
 regress_group_data <- function(data, group_id, obs, covs,
                                include_intercept = TRUE, ...){
-  grouped_data <- group_by_at(data, group_id)
+  # Create formula in the form obs ~ 1 + covs[1] + ... +covs[n]
   formula = "1 + "
   intercept_name <- NA
   if (include_intercept){
-    formula = paste(obs, " ~", formula)
+    formula = paste(obs, " ~ ", formula)
     intercept_name <- obs
   }
   for (ind_var in covs){
     formula = paste(formula, " + ", ind_var)
   }
-  results <- lm(formula = as.formula(formula),
-                data = grouped_data, ... = ...)
-  num_col = length(covs) + ifelse(include_intercept, 1, 0)
-  coefficient <- list()
-  for (i in 1:num_col){
-    coefficient[[i]] <- results$coefficients[i]
-  }
-  coefficient <- rbind(coefficient)
-  colnames(coefficient) <- c(obs, covs)
-  coefficient
+  # using dlply from dlply setup models for each group within group_id
+  models <- dlply(data, group_id, function(df) 
+                  lm(formula = as.formula(formula), data = df, ... = ...))
+  # apply the model to the data using ldply
+  lm_dataframe <- ldply(models, coef)
 }
 
-lmreturn <- regress_group_data(iris_withid, group_id_test, obs_regress, covs_regress)
+lmreturn <- regress_group_data(iris_withid, group_id_test, obs, covs_regress)
+
