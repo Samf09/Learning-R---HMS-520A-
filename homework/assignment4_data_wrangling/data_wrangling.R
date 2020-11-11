@@ -100,7 +100,7 @@ df_pop <- df_pop %>% pivot_longer(cols = `1960`:`2020`,
                                   values_drop_na = TRUE) %>% 
                     select(-`Country Code`, -`Indicator Name`,
                            -`Indicator Code`, -X66)
-#
+
 df_pop$year <- as.integer(df_pop$year)
 names(df_pop)[names(df_pop) == "Country Name"] <- "country"
 df_pop_tb <- inner_join(df_tb, df_pop, by=c("country", "year"))
