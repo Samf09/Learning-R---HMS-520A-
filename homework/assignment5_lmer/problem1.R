@@ -25,7 +25,7 @@ ggplot(subset(data, select = c(exposure, obs, study_id2)),
   ggtitle("Study Id 2") + facet_wrap(~study_id2, nrow=2)
 
 # both study ids are pretty messy. Study id 2 looks to be less of a jumble
-# comparatively to study id 1 when exposure is plotted as y and obs as s. Its 
+# comparatively to study id 1 when exposure is plotted as y and obs as x. Its 
 # lines look closer to linear and I would assume easier to model off of and appear
 # to cover more of the data for obs. Less lines are cut off early or start later
 

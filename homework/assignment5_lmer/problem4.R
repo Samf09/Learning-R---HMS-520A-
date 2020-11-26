@@ -18,11 +18,11 @@ formula_prob4 <- paste("obs ~ exposure + ", chosen_covariate, " + (",
 
 fit <- lmer(as.formula(formula_prob4), data = assignment5_data)
 
-study_id1_preds <- predict(fit, newdata = assignment5_data)
-data_with_preds <- cbind(assignment5_data, lmer_preds = study_id1_preds)
+study_id2_preds <- predict(fit, newdata = assignment5_data)
+data_with_preds <- cbind(assignment5_data, lmer_preds = study_id2_preds)
 
 # plots! ------------------------------------------------------------------
 ggplot(data = data_with_preds, aes(x=obs, y=exposure)) +
-  geom_line(aes(color = factor(study_id1))) +
-  facet_wrap(~study_id1, nrow=2) +
+  geom_line(aes(color = factor(study_id2))) +
+  facet_wrap(~study_id2, nrow=2) +
   geom_line(aes(x=obs, y=lmer_preds))
